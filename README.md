@@ -12,7 +12,13 @@ A simple ruby DSL to make assertions over xml documents
 - Nokogiri
 
 ## How
+- Require it
 ```
+require './lib/ruby-xmlspec'
+```
+
+- Use It
+```ruby
   open "my_xml_file.xml" do
     context "//xpath/to/context" do
       assertExists "/element"
