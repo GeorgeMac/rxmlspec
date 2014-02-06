@@ -7,6 +7,16 @@ A simple ruby DSL to make assertions over xml documents
 - To simplify xml validation.
 - To do so without encoding validations in xml (e.g. not like schema, schematron, relaxng or xmlunit)
 
-## How
+## Using
 - Ruby
 - Nokogiri
+
+## How
+```
+  open "my_xml_file.xml" do
+    context "//xpath/to/context" do
+      assertExists "/element"
+      assertExists "/other-element"
+    end
+  end
+```
