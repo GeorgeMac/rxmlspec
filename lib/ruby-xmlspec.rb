@@ -1,6 +1,6 @@
 require 'nokogiri'
 
-def open(path, &block)
+def xmlspec(path, &block)
   doc = Nokogiri::XML(File.open(path, 'r'))
   Document.new(doc).instance_eval &block
 end
@@ -25,7 +25,19 @@ class Document
     end
 
     def assertExists(path)
-      puts !@ctx.xpath(path).to_a.empty?
+      !@ctx.xpath(path).to_a.empty?
+    end
+
+    def assertContains(path=".", descriptor={})
+      return false unless assertExists(path)
+      return true if descriptor.empty?
+      resolved_path = "#{path}/#{descriptor_to_expression(descriptor)}"
+      puts @ctx.xpath(resolved_path)
+    end
+
+    private
+    def descriptor_to_expression(descriptor)
+      "%<elem>s[@%<attr>s='%<attr_val>s']" % descriptor
     end
   end
 end
