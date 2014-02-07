@@ -7,9 +7,9 @@ Gem::Specification.new do |spec|
   spec.name          = "rxmlspec"
   spec.version       = Rxmlspec::VERSION
   spec.authors       = ["George MacRorie"]
-  spec.email         = ["george.macrorie@semantico.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.email         = ["gmacr31@gmail.com"]
+  spec.description   = %q{Ruby XML Spec DSL}
+  spec.summary       = %q{Ruby gem for validating xml documents using a simple DSL}
   spec.homepage      = ""
   spec.license       = "MIT"
 
