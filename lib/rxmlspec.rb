@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'rxmlspec/version'
 require 'rxmlspec/document'
 
 def error_function(message)
