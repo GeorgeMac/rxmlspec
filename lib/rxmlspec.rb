@@ -5,7 +5,7 @@ def error_function(message)
   puts message
 end
 
-module XMLSpec
+module Rxmlspec
 
   def validate(path, &block)
     doc = Nokogiri::XML(File.open(path, 'r'))
