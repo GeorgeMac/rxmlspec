@@ -19,10 +19,12 @@ require './lib/ruby-xmlspec'
 
 - Use It
 ```ruby
-  open "my_xml_file.xml" do
+  xmlspec "my_xml_file.xml" do
     context "//xpath/to/context" do
-      assertExists "/element"
-      assertExists "/other-element"
+      permit ["thing1", "thing2", "thing3"]
+      require ["thing1", "thing2"] do
+        permit "@attr1"
+      end
     end
   end
 ```
@@ -30,7 +32,7 @@ require './lib/ruby-xmlspec'
 ## Documentation
 
 ### Functions
-- open
+- xmlspec
 - context
 - require
 - permit
