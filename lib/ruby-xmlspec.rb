@@ -28,7 +28,7 @@ class Document
       @ctx = ctx
     end
 
-    def require(path="", paths=[], &block)
+    def expect(path="", paths=[], &block)
       paths << path
       paths.each do |p|
         matches = @ctx.xpath(p)
@@ -44,20 +44,5 @@ class Document
       present.each { |p| Context.new(p).instance_eval &block } unless block.nil?
     end
 
-    def assertExists(path)
-      !@ctx.xpath(path).to_a.empty?
-    end
-
-    def assertContains(path=".", descriptor={})
-      return false unless assertExists(path)
-      return true if descriptor.empty?
-      resolved_path = "#{path}/#{descriptor_to_expression(descriptor)}"
-      puts @ctx.xpath(resolved_path)
-    end
-
-    private
-    def descriptor_to_expression(descriptor)
-      "%<elem>s[@%<attr>s='%<attr_val>s']" % descriptor
-    end
   end
 end
