@@ -1,4 +1,4 @@
-# Ruby XML Spec (ruby-xmlspec)
+# Ruby XML Spec (rxmlspec)
 
 ## Purpose
 A simple ruby DSL to make assertions over xml documents
