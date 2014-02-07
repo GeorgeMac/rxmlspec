@@ -26,3 +26,11 @@ require './lib/ruby-xmlspec'
     end
   end
 ```
+
+## Documentation
+
+### Functions
+- open
+- context
+- require
+- permit
