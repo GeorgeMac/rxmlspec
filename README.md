@@ -21,8 +21,8 @@ require './lib/ruby-xmlspec'
 ```ruby
   xmlspec "my_xml_file.xml" do
     context "//xpath/to/context" do
-      permit ["thing1", "thing2", "thing3"]
-      require ["thing1", "thing2"] do
+      expect ["thing1", "thing2", "thing3"]
+      expect ["thing1", "thing2"] do
         permit "@attr1"
       end
     end
@@ -34,5 +34,5 @@ require './lib/ruby-xmlspec'
 ### Functions
 - xmlspec
 - context
-- require
+- expect
 - permit

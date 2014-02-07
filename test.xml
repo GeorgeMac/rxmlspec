@@ -1,0 +1,7 @@
+<stuff>
+  <a>
+    <b c="d"/>
+  </a>
+  <b>other things</b>
+  <a>More see things</a>
+</stuff>
