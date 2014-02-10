@@ -3,14 +3,10 @@ require 'rxmlspec/version'
 require 'rxmlspec/document'
 
 module Rxmlspec
-
-  def validate(path, &block)
-    doc = Nokogiri::XML(File.open(path, 'r'))
-    Document.new(doc).instance_eval &block
+  class Validator
+    def self.validate(path, &block)
+      doc = Nokogiri::XML(File.open(path, 'r'))
+      Document.new(doc, lambda { |e| puts e } ).instance_eval &block
+    end
   end
-
-  def error_function(message)
-    puts message
-  end
-
 end
