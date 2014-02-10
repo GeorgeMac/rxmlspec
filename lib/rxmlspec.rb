@@ -4,7 +4,7 @@ require 'rxmlspec/document'
 
 module Rxmlspec
   class Validator
-    def self.validate(path, err_func= ->(e){ puts e }, &block)
+    def self.begin(path, err_func= ->(e){ puts e }, &block)
       doc = Nokogiri::XML(File.open(path, 'r'))
       Document.new(doc, err_func).instance_eval &block
     end
