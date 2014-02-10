@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["gmacr31@gmail.com"]
   spec.description   = %q{Ruby XML Spec DSL}
   spec.summary       = %q{Ruby gem for validating xml documents using a simple DSL}
-  spec.homepage      = "github.com/GeorgeMac/rxmlspec"
+  spec.homepage      = "http://github.com/GeorgeMac/rxmlspec"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
