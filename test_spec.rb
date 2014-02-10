@@ -1,6 +1,10 @@
-require './lib/ruby-xmlspec.rb'
+require 'rubygems'
+require 'bundler'
 
-XMLSpec::validate "test.xml" do
+Bundler.setup :default
+Bundler.require :default
+
+Rxmlspec::Validator.validate "test.xml" do
   context "/stuff" do
     permit ["a","b"]
     expect "a" do
