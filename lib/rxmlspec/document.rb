@@ -20,38 +20,51 @@ class Document
       define_singleton_method :err_func, err_func
     end
 
-    def expect(paths=[], &block)
-      paths.each do |p|
-        matches = @ctx.xpath(p)
-        return err_func("The following match #{p} is required in the given context") if matches.to_a.empty?
-        matches.each { |m| Context.new(m, @err_func).instance_eval &block } unless block.nil?
+    def expect(*components, &block)
+      expected = resolve_components components
+      expected[:elem].each do |elem|
+        nodes = @ctx.search(elem)
+        err_func({type: "element", name: elem, reason: "missing"}) if nodes.empty?
+        nodes.each {|node| build_context(node).instance_eval &block} unless block.nil?
+      end
+      expected[:attr].each do |attr|
+        if @ctx.has_attribute? attr[:key]
+          attrs = @ctx.attr[attr[:key]]
+          err_func({type: "attribute", name: attr[:key], value: attr[:value], reason: "missing value"}) unless attrs.contains(attr[:value])
+        else
+          err_func({type: "attribute", name: attr[:key], value: attr[:value], reason: "missing"})
+        end
+      end
+      expected[:text].each do |text|
       end
     end
 
-    def permit(paths=[], &block)
-      present = @ctx.children.map { |child| child.name() }
-      puts "Components: #{resolve_components_on_context(paths)}"
-      return err_func("The following elements: #{present - paths} are not valid") if (present - paths).length > 0
-      present.each { |p| Context.new(p, @err_func).instance_eval &block } unless block.nil?
+    def permit(*components, &block)
+      components = resolve_components components
+      puts "PERMIT CURRENTLY UNDEFINED"
     end
 
     private
-    def resolve_components_on_context(components)
+    def resolve_components(components)
       result = Hash.new {|h,k| h[k] = []}
       text = /text\((?<content>.*?)\)/
-      attr = /\@(?<content>.*)/
-      components.map do |item|
+        attr = /\@(?<content>.*)/
+        components.each do |item|
         case item
         when text
           result[:text] << text.match(item)[:content]
         when attr
-          match = attr.match(item)[:content].split(":")
+          match = attr.match(item)[:content].split("=")
           result[:attr] << {key: match[0], value: match[1]}
         else
           result[:elem] << item
         end
-      end
+        end
       return result
+    end
+
+    def build_context(context)
+      Context.new(context, @err_func)
     end
 
   end
